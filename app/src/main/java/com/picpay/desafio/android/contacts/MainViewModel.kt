@@ -18,7 +18,7 @@ class MainViewModel(
     private val intentChannel = Channel<ContactIntent>(Channel.UNLIMITED)
 
     private val _contactState = MutableStateFlow(ContactUiState(loading = false))
-    val detailState: StateFlow<ContactUiState> = _contactState.asStateFlow()
+    val contactState: StateFlow<ContactUiState> = _contactState.asStateFlow()
 
     private val service: PicPayService by lazy {
         retrofit.create(PicPayService::class.java)
