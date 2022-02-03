@@ -4,11 +4,13 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.contacts.adapter.UserListAdapter
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -21,6 +23,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onResume() {
         super.onResume()
 
+        prepareComponents()
+        showUiState()
+    }
+
+    private fun prepareComponents() {
         recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.user_list_progress_bar)
 
@@ -29,41 +36,28 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         progressBar.visibility = View.VISIBLE
-
+        recyclerView.visibility = View.VISIBLE
 
         viewModel.sendIntent(ContactIntent.GetContactList())
+    }
 
-        val contactUiState = viewModel.contactState.value
+    private fun showUiState() {
+        lifecycleScope.launch {
+            viewModel.contactState.collect { uiState ->
 
-        val visibility = if (contactUiState.loading) View.VISIBLE else View.GONE
-        adapter.users = contactUiState.contactList
-        progressBar.visibility = visibility
-        recyclerView.visibility = visibility
+                progressBar.visibility = when {
+                    uiState.loading -> View.VISIBLE
+                    else -> View.GONE
+                }
 
-        if (contactUiState.error != null) {
-            val message = getString(R.string.error)
-            Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
-                .show()
+                adapter.users = uiState.contactList
+
+                uiState.error?.let {
+                    val message = getString(R.string.error)
+                    Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
-
-//        viewModel.getUsers()
-//        service.getUsers()
-//            .enqueue(object : Callback<List<User>> {
-//                override fun onFailure(call: Call<List<User>>, t: Throwable) {
-//                    val message = getString(R.string.error)
-//
-//                    progressBar.visibility = View.GONE
-//                    recyclerView.visibility = View.GONE
-//
-//                    Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//
-//                override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-//                    progressBar.visibility = View.GONE
-//
-//                    adapter.users = response.body()!!
-//                }
-//            })
     }
 }
