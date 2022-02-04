@@ -1,8 +1,7 @@
-package com.picpay.desafio.android.data
+package com.picpay.desafio.android.coredata
 
 import androidx.room.Room
 import com.google.gson.Gson
-import com.picpay.desafio.android.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -30,7 +29,7 @@ val dataModule = module {
 
 }
 
-fun Module.injectDataNetworkDependencies(){
+fun Module.injectDataNetworkDependencies() {
 
     single(named(WEB_API_BASE_URL)) {
         "https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/"
@@ -70,7 +69,7 @@ fun Module.injectDataNetworkDependencies(){
     }
 }
 
-fun Module.injectDataLocalDependencies(){
+fun Module.injectDataLocalDependencies() {
 
     single {
         get<ContactDb>(
