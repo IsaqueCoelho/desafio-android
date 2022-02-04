@@ -49,7 +49,7 @@ class MainViewModel(
             _contactState.emit(
                 ContactUiState(
                     loading = false,
-                    contactList = it
+                    userList = it
                 )
             )
         }

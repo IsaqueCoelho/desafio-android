@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     else -> View.GONE
                 }
 
-                adapter.users = uiState.contactList
+                adapter.users = uiState.userList
 
                 uiState.error?.let {
                     val message = getString(R.string.error)

@@ -5,7 +5,7 @@ interface ViewState
 data class ContactUiState(
     val loading: Boolean = false,
     val error: Exception? = null,
-    val contactList: List<User> = emptyList()
+    val userList: List<User> = emptyList()
 )
 
 
