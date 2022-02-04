@@ -2,7 +2,7 @@ package com.picpay.desafio.android.contacts
 
 import com.picpay.desafio.android.contacts.repository.ContactRepository
 import com.picpay.desafio.android.contacts.repository.PicPayService
-import com.picpay.desafio.android.data.RETROFIT_BUILDER
+import com.picpay.desafio.android.coredata.RETROFIT_BUILDER
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named

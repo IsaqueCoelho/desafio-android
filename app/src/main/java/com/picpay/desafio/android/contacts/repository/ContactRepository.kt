@@ -3,12 +3,11 @@ package com.picpay.desafio.android.contacts.repository
 import android.util.Log
 import com.picpay.desafio.android.contacts.User
 import com.picpay.desafio.android.coredata.ContactDao
-import com.picpay.desafio.android.coredata.UserEntity
 import kotlinx.coroutines.flow.flow
 
 class ContactRepository(
     private val service: PicPayService,
-    private val contactDao: com.picpay.desafio.android.coredata.ContactDao
+    private val contactDao: ContactDao
 ) {
 
     fun getContactList() = flow {
