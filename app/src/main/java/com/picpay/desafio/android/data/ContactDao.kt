@@ -6,9 +6,9 @@ import androidx.room.*
 interface ContactDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertContacts(contactEntity: ContactEntity)
+    suspend fun insertContacts(userEntityList: List<UserEntity>)
 
     @Transaction
     @Query("SELECT * FROM contact")
-    suspend fun selectContacts(): List<ContactEntity>
+    suspend fun selectContacts(): List<UserEntity>
 }
