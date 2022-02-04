@@ -17,6 +17,7 @@ const val RETROFIT_BUILDER = "retrofitBuilder"
 const val GSON_INSTANCE = "gsonInstance"
 const val GSON_CONVERTER_FACTORY_INSTANCE = "gsonConverterFactoryInstance"
 const val WEB_API_BASE_URL = "webApiBaseUrl"
+const val DB_INSTANCE = "dbInstance"
 
 fun Module.injectDataNetworkDependencies(){
 
@@ -62,11 +63,11 @@ fun Module.injectDataLocalDependencies(){
 
     single {
         get<ContactDb>(
-            named("db")
+            named(DB_INSTANCE)
         ).contactDao()
     }
 
-    single(named("db")) {
+    single(named(DB_INSTANCE)) {
         Room.databaseBuilder(
             androidContext(),
             ContactDb::class.java, "PicPayContact"

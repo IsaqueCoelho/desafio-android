@@ -11,13 +11,14 @@ import retrofit2.Retrofit
 fun Module.injectContacts() {
     viewModel {
         MainViewModel(
-            get()
+            repository = get()
         )
     }
 
     factory {
         ContactRepository(
-            get()
+            service = get(),
+            contactDao = get()
         )
     }
 
