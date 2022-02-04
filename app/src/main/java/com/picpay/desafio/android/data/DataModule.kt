@@ -1,9 +1,11 @@
 package com.picpay.desafio.android.data
 
+import androidx.room.Room
 import com.google.gson.Gson
 import com.picpay.desafio.android.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import retrofit2.Retrofit
@@ -53,5 +55,21 @@ fun Module.injectDataNetworkDependencies(){
             .addConverterFactory(get<GsonConverterFactory>(named(GSON_CONVERTER_FACTORY_INSTANCE)))
             .client(get<OkHttpClient>(named(OKHTTP_CLIENT_BUILDER)))
             .build()
+    }
+}
+
+fun Module.injectDataLocalDependencies(){
+
+    single {
+        get<ContactDb>(
+            named("db")
+        ).contactDao()
+    }
+
+    single(named("db")) {
+        Room.databaseBuilder(
+            androidContext(),
+            ContactDb::class.java, "PicPayContact"
+        ).build()
     }
 }
