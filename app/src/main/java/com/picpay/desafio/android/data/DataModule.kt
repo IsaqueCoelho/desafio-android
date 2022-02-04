@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -18,6 +19,16 @@ const val GSON_INSTANCE = "gsonInstance"
 const val GSON_CONVERTER_FACTORY_INSTANCE = "gsonConverterFactoryInstance"
 const val WEB_API_BASE_URL = "webApiBaseUrl"
 const val DB_INSTANCE = "dbInstance"
+
+val dataModule = module {
+
+    // inject network
+    injectDataNetworkDependencies()
+
+    // inject local database
+    injectDataLocalDependencies()
+
+}
 
 fun Module.injectDataNetworkDependencies(){
 

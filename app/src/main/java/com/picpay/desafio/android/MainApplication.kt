@@ -1,7 +1,8 @@
 package com.picpay.desafio.android
 
 import android.app.Application
-import com.picpay.desafio.android.di.koinModule
+import com.picpay.desafio.android.data.dataModule
+import com.picpay.desafio.android.di.contactModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -14,7 +15,8 @@ class MainApplication : Application() {
             androidContext(applicationContext)
             modules(
                 listOf(
-                    koinModule
+                    contactModule,
+                    dataModule
                 )
             )
         }
