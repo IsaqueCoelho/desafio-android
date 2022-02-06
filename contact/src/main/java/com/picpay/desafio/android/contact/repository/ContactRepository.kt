@@ -21,7 +21,7 @@ class ContactRepository(
             else -> {
                 Log.e("ContactRepository", "com cache")
                 val contactList = localContactList.map {
-                    com.picpay.desafio.android.contact.User(
+                    User(
                         id = it.id,
                         name = it.name,
                         username = it.username,
@@ -35,7 +35,7 @@ class ContactRepository(
         }
     }
 
-    private suspend fun syncData(): List<com.picpay.desafio.android.contact.User> {
+    private suspend fun syncData(): List<User> {
         val newContactList = service.getUsers()
         val entityContactList = newContactList.map {
             com.picpay.desafio.android.coredata.UserEntity(
