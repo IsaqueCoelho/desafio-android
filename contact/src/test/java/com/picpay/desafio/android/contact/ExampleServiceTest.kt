@@ -2,30 +2,46 @@ package com.picpay.desafio.android.contact
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import com.picpay.desafio.android.contact.repository.PicPayService
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import retrofit2.Call
-import retrofit2.Response
 
 class ExampleServiceTest {
 
-    private val api = mock<com.picpay.desafio.android.contact.repository.PicPayService>()
+    private val api = mock<PicPayService>()
 
     private val service = ExampleService(api)
 
     @Test
-    fun exampleTest() {
+    fun `GIVEN emptlist WHEN calling for users THEN assert result`() {
         // given
-        val call = mock<Call<List<com.picpay.desafio.android.contact.User>>>()
-        val expectedUsers = emptyList<com.picpay.desafio.android.contact.User>()
+        val expectedUsers = emptyList<User>()
 
-        whenever(call.execute()).thenReturn(Response.success(expectedUsers))
-//        whenever(api.getUsers()).thenReturn(call)
+        runBlocking {
+            whenever(api.getUsers()).thenReturn(expectedUsers)
+        }
 
         // when
-        val users = service.example()
+        val users = runBlocking {
+            service.example()
+        }
 
         // then
         assertEquals(users, expectedUsers)
+    }
+
+    @Test
+    fun `GIVEN expected result WHEN calc 2 + 2 THEN assert 4`() {
+        // Given
+        val expectedResult = 4
+
+        // When
+        val calc = runBlocking {
+            2 + 2
+        }
+
+        // Then
+        assertEquals(calc, expectedResult)
     }
 }
