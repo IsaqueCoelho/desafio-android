@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onResume() {
         super.onResume()
 
+        viewModel.handleIntents()
         prepareComponents()
         showUiState()
     }

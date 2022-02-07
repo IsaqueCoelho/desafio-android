@@ -1,5 +1,6 @@
 package com.picpay.desafio.android.contact
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.contact.repository.ContactRepository
@@ -11,14 +12,11 @@ class MainViewModel(
     private val repository: ContactRepository
 ) : ViewModel() {
 
-    private val intentChannel = Channel<ContactIntent>(Channel.UNLIMITED)
+    @VisibleForTesting
+    val intentChannel = Channel<ContactIntent>(Channel.UNLIMITED)
 
     private val _contactState = MutableStateFlow(ContactUiState(loading = false))
     val contactState: StateFlow<ContactUiState> = _contactState.asStateFlow()
-
-    init {
-        handleIntents()
-    }
 
     fun sendIntent(intent: ContactIntent) {
         viewModelScope.launch {
@@ -26,7 +24,7 @@ class MainViewModel(
         }
     }
 
-    private fun handleIntents() {
+    fun handleIntents() {
         intentChannel
             .consumeAsFlow()
             .onEach { intent ->
@@ -39,7 +37,8 @@ class MainViewModel(
     }
 
 
-    private suspend fun getUsers() {
+    @VisibleForTesting
+    suspend fun getUsers() {
         _contactState.emit(
             ContactUiState(
                 loading = true
