@@ -1,8 +1,8 @@
-package com.picpay.desafio.android.contact
+package com.picpay.desafio.android.contact.repository
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.picpay.desafio.android.contact.repository.PicPayService
+import com.picpay.desafio.android.contact.User
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
