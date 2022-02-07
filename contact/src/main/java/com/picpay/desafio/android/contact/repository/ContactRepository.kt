@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.contact.repository
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import com.picpay.desafio.android.contact.User
 import com.picpay.desafio.android.coredata.ContactDao
 import com.picpay.desafio.android.coredata.UserEntity
@@ -36,7 +37,8 @@ class ContactRepository(
         }
     }
 
-    private suspend fun syncData(): List<User> {
+    @VisibleForTesting
+    suspend fun syncData(): List<User> {
         val newContactList = service.getUsers()
         val entityContactList = newContactList.map {
             UserEntity(
