@@ -6,9 +6,9 @@ import androidx.room.*
 interface ContactDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertContacts(userEntityList: List<com.picpay.desafio.android.coredata.UserEntity>)
+    suspend fun insertContacts(userEntityList: List<UserEntity>)
 
     @Transaction
     @Query("SELECT * FROM contact")
-    suspend fun selectContacts(): List<com.picpay.desafio.android.coredata.UserEntity>
+    suspend fun selectContacts(): List<UserEntity>
 }
