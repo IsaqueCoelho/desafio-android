@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.contact.repository
 
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import com.picpay.desafio.android.contact.User
 import com.picpay.desafio.android.coredata.ContactDao
@@ -16,12 +15,10 @@ class ContactRepository(
         val localContactList = contactDao.selectContacts()
         when {
             localContactList.isNullOrEmpty() -> {
-                Log.e("ContactRepository", "sem cache")
                 val newContactList = syncData()
                 emit(newContactList)
             }
             else -> {
-                Log.e("ContactRepository", "com cache")
                 val contactList = localContactList.map {
                     User(
                         id = it.id,
