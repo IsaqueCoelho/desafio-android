@@ -7,7 +7,7 @@ import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class ExampleServiceTest {
+class ServiceTest {
 
     private val api = mock<PicPayService>()
 
